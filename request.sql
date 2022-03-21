@@ -34,10 +34,6 @@ SELECT * FROM test_texte WHERE nombre = 10000::numeric;
 
 SELECT * FROM ma_table where to_char(col_date, 'YYYY') = '2014'
 
-<<<<<<< HEAD
---CREATION INDEX
-CREATE INDEX test_fonction ON test(fonction(col))
-=======
 --CREATION INDEX => fonctionnel
 CREATE INDEX test_fonction ON test(fonction(col))
 
@@ -82,4 +78,13 @@ SELECT * FROM lignes_commandes WHERE numero_lot_expedition = '190774'::numeric;
 CREATE TABLE mere(nom text);
 
 CREATE TABle fille(prenom text) INHERITS (mere);
->>>>>>> 502ecde (commit avec cave)
+
+
+--- CREATION de la table partitionnée
+ALTER TABLE stock rename to sock_old;
+CREATE TABLE stock(like stock_old) Partition by LIST(annee);
+CREATE TABLE stock_2002 PARTITION of stock for values in (2002);
+...
+INSERT INTO STOCK  select * FROM stock_old;
+
+SELECT * FROM STOCK where annee=2002;
