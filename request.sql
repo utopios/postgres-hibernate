@@ -33,3 +33,6 @@ SELECT * FROM test_texte WHERE texte = "data for test_text";
 SELECT * FROM test_texte WHERE nombre = 10000::numeric;
 
 SELECT * FROM ma_table where to_char(col_date, 'YYYY') = '2014'
+
+--CREATION INDEX
+CREATE INDEX test_fonction ON test(fonction(col))
