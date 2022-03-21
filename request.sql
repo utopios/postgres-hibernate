@@ -34,5 +34,52 @@ SELECT * FROM test_texte WHERE nombre = 10000::numeric;
 
 SELECT * FROM ma_table where to_char(col_date, 'YYYY') = '2014'
 
+<<<<<<< HEAD
 --CREATION INDEX
 CREATE INDEX test_fonction ON test(fonction(col))
+=======
+--CREATION INDEX => fonctionnel
+CREATE INDEX test_fonction ON test(fonction(col))
+
+--Creation INDEX couvrant
+CREATE INDEX idx_test_nombre_couvrant ON test_texte(nombre) INCLUDE(texte);
+
+
+--Request TP
+
+EXPLAIN (ANALYZE, BUFFERS) SELECT * FROM commandes WHERE date_commande >= '2014-01-01' AND date_commande < '2014-02-01' ORDER By date_commande;
+
+--INDEX SIMPLE 
+CREATE INDEX idx_commandes_date_commande ON commandes(date_commande);
+
+--JOIN
+EXPLAIN (ANALYZE, BUFFERS) SELECT * FROM commandes
+      INNER JOIN clients ON commandes.client_id = clients.client_id
+    WHERE clients.client_id = 3;
+
+--INDEX
+CREATE INDEX ON commandes (client_id) ;
+
+SELECT * FROM clients WHERE type_client = 'P';
+SELECT * FROM clients WHERE type_client = 'E';
+
+CREATE INDEX ON clients (type_client) INCLUDE();
+
+EXPLAIN ANALYSE SELECT * FROM lots
+    WHERE date_expedition IS NULL
+    AND date_depot < now() - '12h'::interval ;
+
+CREATE INDEX ON lots(date_depot) WHERE date_expedition IS NULL;
+
+SELECT * FROM lots
+    WHERE date_reception IS NULL
+    AND date_expedition < now() - '3d'::interval;
+CREATE INDEX ON lots(date_expedition) WHERE date_reception IS NULL;
+
+SELECT * FROM lignes_commandes WHERE numero_lot_expedition = '190774'::numeric;
+
+--Partition par héritage
+CREATE TABLE mere(nom text);
+
+CREATE TABle fille(prenom text) INHERITS (mere);
+>>>>>>> 502ecde (commit avec cave)
