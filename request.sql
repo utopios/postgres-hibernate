@@ -30,3 +30,6 @@ CREATE INDEX idx_test_texte_nombre_text ON test_texte(nombre, texte);
 SELECT * FROM test_texte WHERE nombre = 10000 AND texte = "data for test_text";
 
 SELECT * FROM test_texte WHERE texte = "data for test_text";
+SELECT * FROM test_texte WHERE nombre = 10000::numeric;
+
+SELECT * FROM ma_table where to_char(col_date, 'YYYY') = '2014'
