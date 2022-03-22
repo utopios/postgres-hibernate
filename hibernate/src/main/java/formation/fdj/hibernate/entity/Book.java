@@ -7,6 +7,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,9 @@ public class Book {
     @OneToMany
     private List<Author> authors;
 
-
+    public Book() {
+        authors = new ArrayList<>();
+    }
     public Long getId() {
         return id;
     }
@@ -38,5 +41,9 @@ public class Book {
 
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
+    }
+
+    public void addAuthor(Author a) {
+        authors.add(a);
     }
 }
