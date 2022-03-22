@@ -19,8 +19,15 @@ import java.util.List;
         }
 )
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "book_type", discriminatorType = DiscriminatorType.STRING)
+//Annotations pour indiquer que la stratégie de gestion d'héritage se fait par une unique table
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "book_type", discriminatorType = DiscriminatorType.STRING)
+
+//Pour avoir plusieurs table, mais avec les fileds des enfants uniquement
+//@Inheritance(strategy = InheritanceType.JOINED)
+
+//Avoir plusieurs table
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DynamicUpdate
 @Cacheable
 @Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
