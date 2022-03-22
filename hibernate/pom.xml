@@ -37,6 +37,16 @@
             <artifactId>hibernate-ehcache</artifactId>
             <version>5.6.5.Final</version>
         </dependency>
+        <dependency>
+            <groupId>net.ttddyy</groupId>
+            <artifactId>datasource-proxy</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+        <groupId>com.vladmihalcea</groupId>
+        <artifactId>db-util</artifactId>
+            <version>1.0.3</version>
+        </dependency>
     </dependencies>
 
     <build>
