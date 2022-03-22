@@ -12,6 +12,8 @@ import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.vladmihalcea.sql.SQLStatementCountValidator.assertInsertCount;
+
 public class AuthorService {
 
     @PersistenceContext
@@ -32,5 +34,8 @@ public class AuthorService {
         Author a2 = new Author();
         List<Author> as = Arrays.asList(a1, a2);
         authorRepository.saveAll(as);
+
+        //Pour l'exemple l'utilisation des assert sur le nombre de requêtes
+        assertInsertCount(4);
     }
 }
