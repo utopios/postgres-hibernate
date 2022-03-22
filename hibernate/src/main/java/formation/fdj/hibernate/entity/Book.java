@@ -2,15 +2,21 @@ package formation.fdj.hibernate.entity;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+@NamedEntityGraph(
+        name = "graph-author",
+        attributeNodes = {
+                @NamedAttributeNode("authors")
+        }
+)
 @Entity
+@DynamicUpdate
 @Cacheable
 @Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
 public class Book {
@@ -19,6 +25,10 @@ public class Book {
     private Long id;
 
     private String title;
+
+    @Column(insertable = false, updatable = false)
+    private Date date_add;
+
     @Cacheable
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany

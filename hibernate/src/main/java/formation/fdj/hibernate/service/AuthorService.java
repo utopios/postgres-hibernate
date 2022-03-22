@@ -24,7 +24,7 @@ public class AuthorService {
     }
 
     public List get() {
-        return entityManager.createQuery("SELECT b FROM Book b").setHint("org.hibernate.cacheable", true).getResultList();
+        return entityManager.createQuery("SELECT b FROM Book b").setHint("javax.persistence.fetchgraph",entityManager.getEntityGraph("graph-author")).setHint("org.hibernate.cacheable", true).getResultList();
     }
 
     public void mockAuthors() {

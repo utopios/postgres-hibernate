@@ -6,11 +6,17 @@ import formation.fdj.hibernate.repository.AuthorRepository;
 import formation.fdj.hibernate.repository.BookRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class BookService {
 
+    @PersistenceContext
+    EntityManager entityManager;
     BookRepository bookRepository;
     AuthorRepository authorRepository;
     public void save(Book book) {
@@ -26,4 +32,13 @@ public class BookService {
         }
         authorRepository.saveInBatch(books);
     }
+
+    public void findByGraph() {
+        EntityGraph graph = entityManager.getEntityGraph("graph-author");
+        HashMap<String, Object> props = new HashMap<>();
+        props.put("javax.persistence.fetchgraph", graph);
+        Book book = entityManager.find(Book.class, 1, props);
+
+    }
+
 }
