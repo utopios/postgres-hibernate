@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//Annotation pour indiquer le classe mère n'a pas de table
+//@MappedSuperclass
+
 @NamedEntityGraph(
         name = "graph-author",
         attributeNodes = {
@@ -16,6 +19,8 @@ import java.util.List;
         }
 )
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "book_type", discriminatorType = DiscriminatorType.STRING)
 @DynamicUpdate
 @Cacheable
 @Cache(usage= CacheConcurrencyStrategy.READ_WRITE)
